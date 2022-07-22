@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <h2 align="center">Lista de productos</h2>
+  <div align="center">
+<!--1.Ingreso de productos-->
+    <form action="/api/objetos" method="post">
+      <p>Titulo:</p>
+      <input name="title"><br />
+      <p>Ruta de foto (https://cdn3.iconfinder.com/data/icons/img/imgX):</p>
+      <input name="thumbnail"><br />
+      <p>precio:</p>
+      <input name="price",type="number"><br />
+      <button type="submit">Enviar</button>
+    </form>
+
+    <br><br>
+<!--2.Carga de productos-->
+    <table>
+        <tr>
+          <th>Titulo</th>
+          <th>Precio</th>
+        </tr>
+        <% contenedorProducts.data.forEach(function(row){%>
+        <tr>
+            <td><%= row.title%></td>
+            <td><%= row.price%></td>
+            <td><img src=<%= row.thumbnail%> alt='login' style='width:20px; height:20px;'></td>
+        </tr>
+        <%})%> 
+    </table>
+<!--3.Agregar y cargar de Mensajes-->
+    <br><br>
+      
+        <form id="form" action="/api/comentarios" method="post" onsubmit="return addMessage(this)">
+          <input type="text" name="username">
+          <input type="text" name="text" placeholder="">
+          <input id="submit" type="submit" value="Enviar">
+        </form>
+        <div id="messages">
+
+        </div>
+ </div>
+<!--4.Scripts--> 
+      <script src="/socket.io/socket.io.js"></script>
+      <script defer src="/front.js"></script>
+</body>
+</html>
